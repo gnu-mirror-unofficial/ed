@@ -7,7 +7,7 @@
 <link title="Top" rel="top" href="#Top">
 <link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
 <!--
-Copyright (C) 1993, 2006, 2007, 2008, 2009
+Copyright (C) 1993, 1994, 2006, 2007, 2008, 2009, 2010
 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
@@ -29,25 +29,6 @@ Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.-->
 </head>
 <body>
 <h1 class="settitle">GNU `ed' Manual</h1>
-   <div class="contents">
-<h2>Table of Contents</h2>
-<ul>
-<li><a name="toc_Top" href="#Top">The GNU ed line editor</a>
-<li><a name="toc_Overview" href="#Overview">1 Overview</a>
-<li><a name="toc_Introduction-to-Line-Editing" href="#Introduction-to-Line-Editing">2 Introduction to Line Editing</a>
-<li><a name="toc_Invoking-Ed" href="#Invoking-Ed">3 Invoking Ed</a>
-<li><a name="toc_Line-Addressing" href="#Line-Addressing">4 Line Addressing</a>
-<li><a name="toc_Regular-Expressions" href="#Regular-Expressions">5 Regular Expressions</a>
-<li><a name="toc_Commands" href="#Commands">6 Commands</a>
-<li><a name="toc_Limitations" href="#Limitations">7 Limitations</a>
-<li><a name="toc_Diagnostics" href="#Diagnostics">8 Diagnostics</a>
-<li><a name="toc_Problems" href="#Problems">9 Reporting Bugs</a>
-<li><a name="toc_GNU-Free-Documentation-License" href="#GNU-Free-Documentation-License">10 GNU Free Documentation License</a>
-</li></ul>
-</div>
-
-
-
 <div class="node">
 <p><hr>
 <a name="Top"></a>
@@ -58,16 +39,18 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 
 <h2 class="unnumbered">The GNU ed line editor</h2>
 
-<p>This manual is for GNU ed (version 1.4, 10 July 2009).
+<p>This manual is for GNU ed (version 1.5, 30 August 2010).
 
    <pre class="sp">
 
 </pre>
-GNU ed is an 8-bit clean, more or less POSIX-compliant implementation of
-the standard Unix line editor. These days, full-screen editors have
-rendered <samp><span class="command">ed</span></samp> mostly of historical interest. Nonetheless, it
-appeals to a handful of aging programmers who still believe that &ldquo;Small
-is Beautiful&rdquo;.
+GNU ed is a line-oriented text editor. It is used to create, display,
+modify and otherwise manipulate text files, both interactively and via
+shell scripts. A restricted version of ed, red, can only edit files in
+the current directory and cannot execute shell commands. Ed is the
+"standard" text editor in the sense that it is the original editor for
+Unix, and thus widely available. For most purposes, however, it is
+superseded by full-screen editors such as GNU Emacs or GNU Moe.
 
 <ul class="menu">
 <li><a accesskey="1" href="#Overview">Overview</a>:                        Overview of the <samp><span class="command">ed</span></samp> command
@@ -86,7 +69,7 @@ is Beautiful&rdquo;.
    <pre class="sp">
 
 </pre>
-Copyright &copy; 1993, 2006, 2007, 2008, 2009
+Copyright &copy; 1993, 1994, 2006, 2007, 2008, 2009, 2010
 Free Software Foundation, Inc.
 
    <p>Permission is granted to copy, distribute and/or modify this document
@@ -350,10 +333,7 @@ commands.
 last line of that file. Similarly, the move command `<samp><span class="samp">m</span></samp>' sets the
 current line to the last line moved.
 
-   <p>In summary:
-
-   <p>Structurally,
-Related programs or routines are <samp><span class="command">vi (1)</span></samp>, <samp><span class="command">sed (1)</span></samp>,
+   <p>Related programs or routines are <samp><span class="command">vi (1)</span></samp>, <samp><span class="command">sed (1)</span></samp>,
 <samp><span class="command">regex (3)</span></samp>,  <samp><span class="command">sh (1)</span></samp>. Relevant documents
 are:
 
@@ -402,6 +382,9 @@ when <samp><span class="command">ed</span></samp> is invoked as the editor for c
 
      <br><dt><code>--prompt=</code><var>string</var><dt><code>-p </code><var>string</var><dd>Specifies a command prompt. This may be toggled on and off with the
 `<samp><span class="samp">P</span></samp>' command.
+
+     <br><dt><code>--restricted</code><dt><code>-r</code><dd>Run in restricted mode. This mode disables edition of files out of the
+current directory and execution of shell commands.
 
      <br><dt><code>--quiet</code><dt><code>--silent</code><dt><code>-s</code><dd>Suppresses diagnostics. This should be used if <samp><span class="command">ed</span></samp>'s standard
 input is from a script.
@@ -882,17 +865,17 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <h2 class="chapter">7 Limitations</h2>
 
 <p>If the terminal hangs up, <samp><span class="command">ed</span></samp> attempts to write the buffer to
-file <samp><span class="file">ed.hup</span></samp>.
+file <samp><span class="file">ed.hup</span></samp> or, if this fails, to <samp><span class="file">$HOME/ed.hup</span></samp>.
 
    <p><samp><span class="command">ed</span></samp> processes <var>file</var> arguments for backslash escapes, i.e.,
-in a filename, any characters preceded by a backslash (`<samp><span class="samp">\</span></samp>') are
+in a filename, any character preceded by a backslash (`<samp><span class="samp">\</span></samp>') is
 interpreted literally.
 
    <p>If a text (non-binary) file is not terminated by a newline character,
 then <samp><span class="command">ed</span></samp> appends one on reading/writing it. In the case of a
 binary file, <samp><span class="command">ed</span></samp> does not append a newline on reading/writing.
 
-   <p>Per line overhead: 4 <code>int</code>s.
+   <p>Per line overhead: 2 <code>pointer</code>s, 1 <code>long int</code>, and 1 <code>int</code>.
 
 <div class="node">
 <p><hr>
