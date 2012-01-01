@@ -1,14 +1,14 @@
 <html lang="en">
 <head>
 <title>GNU `ed' Manual</title>
-<meta http-equiv="Content-Type" content="text/html">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15">
 <meta name="description" content="GNU `ed' Manual">
 <meta name="generator" content="makeinfo 4.8">
 <link title="Top" rel="top" href="#Top">
 <link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
 <!--
-Copyright (C) 1993, 1994, 2006, 2007, 2008, 2009, 2010
-Free Software Foundation, Inc.
+Copyright (C) 1993, 1994, 2006, 2007, 2008, 2009, 2010, 2011,
+2012 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -28,7 +28,6 @@ Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.-->
 --></style>
 </head>
 <body>
-<h1 class="settitle">GNU `ed' Manual</h1>
 <div class="node">
 <p><hr>
 <a name="Top"></a>
@@ -39,7 +38,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 
 <h2 class="unnumbered">The GNU ed line editor</h2>
 
-<p>This manual is for GNU ed (version 1.5, 30 August 2010).
+<p>This manual is for GNU ed (version 1.6, 1 January 2012).
 
    <pre class="sp">
 
@@ -69,8 +68,8 @@ superseded by full-screen editors such as GNU Emacs or GNU Moe.
    <pre class="sp">
 
 </pre>
-Copyright &copy; 1993, 1994, 2006, 2007, 2008, 2009, 2010
-Free Software Foundation, Inc.
+Copyright &copy; 1993, 1994, 2006, 2007, 2008, 2009, 2010, 2011,
+2012 Free Software Foundation, Inc.
 
    <p>Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -372,29 +371,29 @@ to <var>file</var> only if it is not prefixed with a bang.
    <p><samp><span class="command">ed</span></samp> supports the following options:
 
      <dl>
-<dt><code>--help</code><dt><code>-h</code><dd>Print an informative help message describing the options and exit.
+<dt><code>-h</code><dt><code>--help</code><dd>Print an informative help message describing the options and exit.
 
-     <br><dt><code>--version</code><dt><code>-V</code><dd>Print the version number of <samp><span class="command">ed</span></samp> on the standard output and exit.
+     <br><dt><code>-V</code><dt><code>--version</code><dd>Print the version number of <samp><span class="command">ed</span></samp> on the standard output and exit.
 
-     <br><dt><code>--loose-exit-status</code><dt><code>-l</code><dd>Do not exit with bad status if a command happens to "fail" (for example
-if a substitution command finds nothing to replace). This can be useful
-when <samp><span class="command">ed</span></samp> is invoked as the editor for crontab.
-
-     <br><dt><code>--prompt=</code><var>string</var><dt><code>-p </code><var>string</var><dd>Specifies a command prompt. This may be toggled on and off with the
-`<samp><span class="samp">P</span></samp>' command.
-
-     <br><dt><code>--restricted</code><dt><code>-r</code><dd>Run in restricted mode. This mode disables edition of files out of the
-current directory and execution of shell commands.
-
-     <br><dt><code>--quiet</code><dt><code>--silent</code><dt><code>-s</code><dd>Suppresses diagnostics. This should be used if <samp><span class="command">ed</span></samp>'s standard
-input is from a script.
-
-     <br><dt><code>--traditional</code><dt><code>-G</code><dd>Forces backwards compatibility. This affects the behavior of the
+     <br><dt><code>-G</code><dt><code>--traditional</code><dd>Forces backwards compatibility. This affects the behavior of the
 <samp><span class="command">ed</span></samp> commands `<samp><span class="samp">G</span></samp>', `<samp><span class="samp">V</span></samp>', `<samp><span class="samp">f</span></samp>', `<samp><span class="samp">l</span></samp>', `<samp><span class="samp">m</span></samp>',
 `<samp><span class="samp">t</span></samp>' and `<samp><span class="samp">!!</span></samp>'. If the default behavior of these commands does
 not seem familiar, then try invoking <samp><span class="command">ed</span></samp> with this switch.
 
-     <br><dt><code>--verbose</code><dt><code>-v</code><dd>Verbose mode. This may be toggled on and off with the `<samp><span class="samp">H</span></samp>' command.
+     <br><dt><code>-l</code><dt><code>--loose-exit-status</code><dd>Do not exit with bad status if a command happens to "fail" (for example
+if a substitution command finds nothing to replace). This can be useful
+when <samp><span class="command">ed</span></samp> is invoked as the editor for crontab.
+
+     <br><dt><code>-p </code><var>string</var><dt><code>--prompt=</code><var>string</var><dd>Specifies a command prompt. This may be toggled on and off with the
+`<samp><span class="samp">P</span></samp>' command.
+
+     <br><dt><code>-r</code><dt><code>--restricted</code><dd>Run in restricted mode. This mode disables edition of files out of the
+current directory and execution of shell commands.
+
+     <br><dt><code>-s</code><dt><code>--quiet</code><dt><code>--silent</code><dd>Suppresses diagnostics. This should be used if <samp><span class="command">ed</span></samp>'s standard
+input is from a script.
+
+     <br><dt><code>-v</code><dt><code>--verbose</code><dd>Verbose mode. This may be toggled on and off with the `<samp><span class="samp">H</span></samp>' command.
 
    </dl>
 
