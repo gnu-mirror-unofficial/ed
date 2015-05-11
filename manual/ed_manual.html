@@ -38,7 +38,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 
 <h2 class="unnumbered">The GNU ed line editor</h2>
 
-<p>This manual is for GNU ed (version 1.11, 30 March 2015).
+<p>This manual is for GNU ed (version 1.11, 11 May 2015).
 
    <pre class="sp">
 
@@ -682,7 +682,7 @@ The current address is set to the last line read.
      <br><dt><code>f </code><var>file</var><dd>Sets the default filename to <var>file</var>. If <var>file</var> is not specified,
 then the default unescaped filename is printed.
 
-     <br><dt><code>(1,$)g /</code><var>re</var><code>/</code><var>command-list</var><dd>Global command. Applies <var>command-list</var> to each of the addressed
+     <br><dt><code>(1,$)g/</code><var>re</var><code>/</code><var>command-list</var><dd>Global command. Applies <var>command-list</var> to each of the addressed
 lines matching a regular expression <var>re</var>. The current address is set
 to the line currently matched before <var>command-list</var> is executed. At
 the end of the '<samp><span class="samp">g</span></samp>' command, the current address is set to the last
@@ -697,7 +697,7 @@ backslash ('<samp><span class="samp">\</span></samp>'). Any commands are allowed
 is invoked with the command-line option '<samp><span class="samp">-G</span></samp>', then a newline in
 <var>command-list</var> is equivalent to a '<samp><span class="samp">.+1p</span></samp>' command.
 
-     <br><dt><code>(1,$)G /</code><var>re</var><code>/</code><dd>Interactive global command. Interactively edits the addressed lines
+     <br><dt><code>(1,$)G/</code><var>re</var><code>/</code><dd>Interactive global command. Interactively edits the addressed lines
 matching a regular expression <var>re</var>. For each matching line, the line
 is printed, the current address is set, and the user is prompted to
 enter a <var>command-list</var>. At the end of the '<samp><span class="samp">G</span></samp>' command, the
@@ -708,11 +708,11 @@ current address is set to the last line affected by (the last)
 command. A newline alone acts as a null command list. A single '<samp><span class="samp">&amp;</span></samp>'
 repeats the last non-null command list.
 
+     <br><dt><code>h</code><dd>Prints an explanation of the last error.
+
      <br><dt><code>H</code><dd>Toggles the printing of error explanations. By default, explanations are
 not printed. It is recommended that ed scripts begin with this command
 to aid in debugging.
-
-     <br><dt><code>h</code><dd>Prints an explanation of the last error.
 
      <br><dt><code>(.)i</code><dd>Inserts text in the buffer before the current line. The address '<samp><span class="samp">0</span></samp>'
 (zero) is valid for this command; it is equivalent to address '<samp><span class="samp">1</span></samp>'. 
@@ -763,7 +763,7 @@ address is set to the last line read.
 '<samp><span class="samp">!command</span></samp>', (see the '<samp><span class="samp">!</span></samp>' command below). The default filename
 is unchanged. The current address is set to the last line read.
 
-     <br><dt><code>(.,.)s /</code><var>re</var><code>/</code><var>replacement</var><code>/</code><dt><code>(.,.)s /</code><var>re</var><code>/</code><var>replacement</var><code>/g</code><dt><code>(.,.)s /</code><var>re</var><code>/</code><var>replacement</var><code>/</code><var>n</var><dd>Replaces text in the addressed lines matching a regular expression
+     <br><dt><code>(.,.)s/</code><var>re</var><code>/</code><var>replacement</var><code>/</code><dt><code>(.,.)s/</code><var>re</var><code>/</code><var>replacement</var><code>/g</code><dt><code>(.,.)s/</code><var>re</var><code>/</code><var>replacement</var><code>/</code><var>n</var><dd>Replaces text in the addressed lines matching a regular expression
 <var>re</var> with <var>replacement</var>. By default, only the first match in
 each line is replaced. If the '<samp><span class="samp">g</span></samp>' (global) suffix is given, then
 every match is replaced. The <var>n</var> suffix, where <var>n</var> is a postive
@@ -803,11 +803,11 @@ before the command. The global commands '<samp><span class="samp">g</span></samp
 and '<samp><span class="samp">V</span></samp>' are treated as a single command by undo. '<samp><span class="samp">u</span></samp>' is its
 own inverse.
 
-     <br><dt><code>(1,$)v /</code><var>re</var><code>/</code><var>command-list</var><dd>This is similar to the '<samp><span class="samp">g</span></samp>' command except that it applies
+     <br><dt><code>(1,$)v/</code><var>re</var><code>/</code><var>command-list</var><dd>This is similar to the '<samp><span class="samp">g</span></samp>' command except that it applies
 <var>command-list</var> to each of the addressed lines not matching the
 regular expression <var>re</var>.
 
-     <br><dt><code>(1,$)V /</code><var>re</var><code>/</code><dd>This is similar to the '<samp><span class="samp">G</span></samp>' command except that it interactively
+     <br><dt><code>(1,$)V/</code><var>re</var><code>/</code><dd>This is similar to the '<samp><span class="samp">G</span></samp>' command except that it interactively
 edits the addressed lines not matching the regular expression <var>re</var>.
 
      <br><dt><code>(1,$)w </code><var>file</var><dd>Writes the addressed lines to <var>file</var>. Any previous contents of
@@ -834,7 +834,7 @@ line. The current address is set to the last line copied.
 overwritten by subsequent '<samp><span class="samp">y</span></samp>', '<samp><span class="samp">s</span></samp>', '<samp><span class="samp">j</span></samp>', '<samp><span class="samp">d</span></samp>', or
 '<samp><span class="samp">c</span></samp>' commands. The current address is unchanged.
 
-     <br><dt><code>(.+1)z </code><var>n</var><dd>Scrolls <var>n</var> lines at a time starting at addressed line, and sets
+     <br><dt><code>(.+1)z</code><var>n</var><dd>Scrolls <var>n</var> lines at a time starting at addressed line, and sets
 window size to <var>n</var>. If <var>n</var> is not specified, then the current
 window size is used. Window size defaults to screen size minus two
 lines, or to 22 if screen size can't be determined. The current address
