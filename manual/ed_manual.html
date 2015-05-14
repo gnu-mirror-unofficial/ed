@@ -38,7 +38,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 
 <h2 class="unnumbered">The GNU ed line editor</h2>
 
-<p>This manual is for GNU ed (version 1.11, 11 May 2015).
+<p>This manual is for GNU ed (version 1.12-pre1, 14 May 2015).
 
    <pre class="sp">
 
@@ -167,9 +167,8 @@ utilities.
 of input. So when we speak of "entering" a command or some text in
 <samp><span class="command">ed</span></samp>, &lt;RETURN&gt; is implied at the end of each line. Prior to
 typing &lt;RETURN&gt;, corrections to the line may be made by typing
-either &lt;BACKSPACE&gt; (sometimes labeled &lt;DELETE&gt; or &lt;DEL&gt;) to
-erase characters backwards, or &lt;CONTROL&gt;-u (i.e., hold the CONTROL
-key and type u) to erase the whole line.
+either &lt;BACKSPACE&gt; to erase characters backwards, or &lt;CONTROL&gt;-u
+(i.e., hold the CONTROL key and type u) to erase the whole line.
 
    <p>When <samp><span class="command">ed</span></samp> first opens, it expects to be told what to do but
 doesn't prompt us like the shell. So let's begin by telling <samp><span class="command">ed</span></samp>
@@ -225,10 +224,9 @@ the buffer that should be printed, we prefix the command with &lt;,&gt;
      *
 </pre>
    <p>Now let's write the buffer contents to a file named <code>junk</code> with the
-&lt;w&gt; (<dfn>write</dfn>) command. Again, we use the &lt;,&gt; prefix to
-indicate that it's the whole buffer we want:
+&lt;w&gt; (<dfn>write</dfn>) command.
 
-<pre class="example">     *,w junk
+<pre class="example">     *w junk
      137
      *
 </pre>
@@ -239,7 +237,9 @@ since unwritten changes to the buffer will be lost when we exit
    <p>The sample sessions below illustrate some basic concepts of line editing
 with <samp><span class="command">ed</span></samp>. We begin by creating a file, '<samp><span class="samp">sonnet</span></samp>', with some
 help from Shakespeare. As with the shell, all input to <samp><span class="command">ed</span></samp> must
-be followed by a &lt;newline&gt; character. Comments begin with a '<samp><span class="samp">#</span></samp>'.
+be followed by a &lt;newline&gt; character. Commands beginning with
+'<samp><span class="samp">#</span></samp>' are taken as comments and ignored. Input mode lines that begin
+with '<samp><span class="samp">#</span></samp>' are just more input.
 
 <pre class="example">     $ ed
      # The 'a' command is for appending text to the editor buffer.
@@ -388,7 +388,7 @@ when <samp><span class="command">ed</span></samp> is invoked as the editor for c
      <br><dt><code>-p </code><var>string</var><dt><code>--prompt=</code><var>string</var><dd>Specifies a command prompt. This may be toggled on and off with the
 '<samp><span class="samp">P</span></samp>' command.
 
-     <br><dt><code>-r</code><dt><code>--restricted</code><dd>Run in restricted mode. This mode disables edition of files out of the
+     <br><dt><code>-r</code><dt><code>--restricted</code><dd>Run in restricted mode. This mode disables editing of files out of the
 current directory and execution of shell commands.
 
      <br><dt><code>-s</code><dt><code>--quiet</code><dt><code>--silent</code><dd>Suppresses diagnostics. This should be used if <samp><span class="command">ed</span></samp>'s standard
