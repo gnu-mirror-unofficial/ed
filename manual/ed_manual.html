@@ -38,7 +38,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 
 <h2 class="unnumbered">The GNU ed line editor</h2>
 
-<p>This manual is for GNU ed (version 1.12-pre1, 14 May 2015).
+<p>This manual is for GNU ed (version 1.12, 4 July 2015).
 
    <pre class="sp">
 
@@ -123,7 +123,7 @@ means of replacement, as in the example above. However even here, the
 addresses, followed by a single character command and possibly
 additional parameters; i.e., commands have the structure:
 
-<pre class="example">     [<var>address</var> [,<var>address</var>]]<var>command</var>[<var>parameters</var>]
+<pre class="example">     [<var>address</var>[,<var>address</var>]]<var>command</var>[<var>parameters</var>]
 </pre>
    <p>The <var>address</var>es indicate the line or range of lines to be affected
 by the command. If fewer addresses are given than the command accepts,
@@ -224,7 +224,7 @@ the buffer that should be printed, we prefix the command with &lt;,&gt;
      *
 </pre>
    <p>Now let's write the buffer contents to a file named <code>junk</code> with the
-&lt;w&gt; (<dfn>write</dfn>) command.
+&lt;w&gt; (<dfn>write</dfn>) command:
 
 <pre class="example">     *w junk
      137
@@ -856,7 +856,7 @@ unchanged.
      <br><dt><code>($)=</code><dd>Prints the line number of the addressed line.
 
      <br><dt><code>(.+1)&lt;newline&gt;</code><dd>An address alone prints the addressed line. A &lt;newline&gt; alone is
-equivalent to '<samp><span class="samp">+1p</span></samp>'. the current address is set to the address of
+equivalent to '<samp><span class="samp">+1p</span></samp>'. The current address is set to the address of
 the printed line.
 
    </dl>
@@ -873,7 +873,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <h2 class="chapter">7 Limitations</h2>
 
 <p>If the terminal hangs up, <samp><span class="command">ed</span></samp> attempts to write the buffer to
-file <samp><span class="file">ed.hup</span></samp> or, if this fails, to <samp><span class="file">$HOME/ed.hup</span></samp>.
+the file <samp><span class="file">ed.hup</span></samp> or, if this fails, to <samp><span class="file">$HOME/ed.hup</span></samp>.
 
    <p><samp><span class="command">ed</span></samp> processes <var>file</var> arguments for backslash escapes, i.e.,
 in a filename, any character preceded by a backslash ('<samp><span class="samp">\</span></samp>') is
