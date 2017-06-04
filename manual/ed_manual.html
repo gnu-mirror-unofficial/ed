@@ -38,7 +38,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 
 <h2 class="unnumbered">The GNU ed line editor</h2>
 
-<p>This manual is for GNU ed (version 1.14.2, 22 February 2017).
+<p>This manual is for GNU ed (version 1.14.2, 4 June 2017).
 
    <pre class="sp">
 
@@ -470,11 +470,11 @@ address range '<samp><span class="samp">.;$</span></samp>'.
 
      <br><dt><code>/</code><var>re</var><code>/</code><dd>The next line containing the regular expression <var>re</var>. The search
 wraps to the beginning of the buffer and continues down to the current
-line, if necessary. A null <var>re</var> '<samp><span class="samp">//</span></samp>' repeats the last search.
+line, if necessary.
 
      <br><dt><code>?</code><var>re</var><code>?</code><dd>The previous line containing the regular expression <var>re</var>. The search
 wraps to the end of the buffer and continues up to the current line, if
-necessary. A null <var>re</var> '<samp><span class="samp">??</span></samp>' repeats the last search.
+necessary.
 
      <br><dt><code>'x</code><dd>The apostrophe-x character pair addresses the line previously marked by
 a '<samp><span class="samp">k</span></samp>' (mark) command, where '<samp><span class="samp">x</span></samp>' is a lower case letter from
@@ -522,11 +522,15 @@ the <samp><span class="command">ed</span></samp> command
 used by the '<samp><span class="samp">s</span></samp>' command for selecting old text to be replaced with
 new text.
 
-   <p>In addition to a specifying string literals, regular expressions can
+   <p>In addition to specifying string literals, regular expressions can
 represent classes of strings. Strings thus represented are said to be
 matched by the corresponding regular expression. If it is possible for a
 regular expression to match several strings in a line, then the
-left-most longest match is the one selected.
+left-most match is the one selected. If the regular expression permits a
+variable number of matching characters, the longest sequence starting at
+that point is matched.
+
+   <p>A null <var>re</var> is equivalent to the last <var>re</var> encountered.
 
    <p>The following symbols are used in constructing regular expressions:
 
@@ -584,7 +588,7 @@ the <var>n</var>th subexpression. For example, the regular expression
 '<samp><span class="samp">abcadc</span></samp>'. Subexpressions are ordered relative to their left
 delimiter.
 
-     <br><dt><code>*</code><dd>Matches the single character regular expression or subexpression
+     <br><dt><code>*</code><dd>Matches the single character regular expression, or the subexpression,
 immediately preceding it zero or more times. If '<samp><span class="samp">*</span></samp>' is the first
 character of a regular expression or subexpression, then it matches
 itself. The '<samp><span class="samp">*</span></samp>' operator sometimes yields unexpected results. For
@@ -621,7 +625,7 @@ expressions or subexpression, then it matches a literal '<samp><span class="samp
 
      <br><dt><code>\+</code><dd>Matches the single character regular expression or subexpression
 immediately preceding it one or more times. So the regular expression
-'<samp><span class="samp">a+</span></samp>' is shorthand for '<samp><span class="samp">aa*</span></samp>'. If '<samp><span class="samp">\+</span></samp>' occurs at the
+'<samp><span class="samp">a\+</span></samp>' is shorthand for '<samp><span class="samp">aa*</span></samp>'. If '<samp><span class="samp">\+</span></samp>' occurs at the
 beginning of a regular expression or subexpression, then it matches a
 literal '<samp><span class="samp">+</span></samp>'.
 
@@ -849,8 +853,8 @@ the '<samp><span class="samp">g</span></samp>' and '<samp><var>count</var></samp
 combination of the suffixes '<samp><span class="samp">p</span></samp>' and '<samp><span class="samp">r</span></samp>'. The '<samp><span class="samp">g</span></samp>' suffix
 toggles the global suffix of the last substitution and resets
 <var>count</var> to 1. The '<samp><span class="samp">p</span></samp>' suffix toggles the print suffixes of the
-last substitution. The '<samp><span class="samp">r</span></samp>' suffix causes the regular expression of
-the last search to be used instead of that of the last substitution (if
+last substitution. The '<samp><span class="samp">r</span></samp>' suffix causes the <var>re</var> of the last
+search to be used instead of the <var>re</var> of the last substitution (if
 the search happened after the substitution).
 
      <br><dt><code>(.,.)t(.)</code><dd>Copies (i.e., transfers) the addressed lines to after the right-hand
