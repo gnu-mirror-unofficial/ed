@@ -7,8 +7,7 @@
 <link title="Top" rel="top" href="#Top">
 <link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
 <!--
-Copyright (C) 1993, 1994, 2006-2017
-Free Software Foundation, Inc.
+Copyright (C) 1993, 1994, 2006-2019 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -38,7 +37,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 
 <h2 class="unnumbered">The GNU ed line editor</h2>
 
-<p>This manual is for GNU ed (version 1.14.2, 4 June 2017).
+<p>This manual is for GNU ed (version 1.15, 1 January 2019).
 
    <pre class="sp">
 
@@ -47,7 +46,7 @@ GNU ed is a line-oriented text editor. It is used to create, display,
 modify and otherwise manipulate text files, both interactively and via
 shell scripts. A restricted version of ed, red, can only edit files in
 the current directory and cannot execute shell commands. Ed is the
-"standard" text editor in the sense that it is the original editor for
+'standard' text editor in the sense that it is the original editor for
 Unix, and thus widely available. For most purposes, however, it is
 superseded by full-screen editors such as GNU Emacs or GNU Moe.
 
@@ -67,8 +66,7 @@ superseded by full-screen editors such as GNU Emacs or GNU Moe.
    <pre class="sp">
 
 </pre>
-Copyright &copy; 1993, 1994, 2006-2017
-Free Software Foundation, Inc.
+Copyright &copy; 1993, 1994, 2006-2019 Free Software Foundation, Inc.
 
    <p>Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -374,7 +372,8 @@ to <var>file</var> only if it is not prefixed with a bang.
      <dl>
 <dt><code>-h</code><dt><code>--help</code><dd>Print an informative help message describing the options and exit.
 
-     <br><dt><code>-V</code><dt><code>--version</code><dd>Print the version number of <samp><span class="command">ed</span></samp> on the standard output and exit.
+     <br><dt><code>-V</code><dt><code>--version</code><dd>Print the version number of <samp><span class="command">ed</span></samp> on the standard output and exit. 
+This version number should be included in all bug reports.
 
      <br><dt><code>-G</code><dt><code>--traditional</code><dd>Forces backwards compatibility. This affects the behavior of the
 <samp><span class="command">ed</span></samp> commands '<samp><span class="samp">G</span></samp>', '<samp><span class="samp">V</span></samp>', '<samp><span class="samp">f</span></samp>', '<samp><span class="samp">l</span></samp>', '<samp><span class="samp">m</span></samp>',
@@ -422,8 +421,8 @@ of the file. In general, the current address is set to the address of
 the last line affected by a command.
 
    <p>One exception to the rule that addresses represent line numbers is the
-address '<samp><span class="samp">0</span></samp>' (zero). This means "before the first line", and is
-valid wherever it makes sense.
+address '<samp><span class="samp">0</span></samp>' (zero). This means "at the beginning of the buffer",
+and is valid wherever it makes sense.
 
    <p>An address range is two addresses separated either by a comma ('<samp><span class="samp">,</span></samp>')
 or a semicolon ('<samp><span class="samp">;</span></samp>'). In a semicolon-delimited range, the current
@@ -588,8 +587,9 @@ the <var>n</var>th subexpression. For example, the regular expression
 '<samp><span class="samp">abcadc</span></samp>'. Subexpressions are ordered relative to their left
 delimiter.
 
-     <br><dt><code>*</code><dd>Matches the single character regular expression, or the subexpression,
-immediately preceding it zero or more times. If '<samp><span class="samp">*</span></samp>' is the first
+     <br><dt><code>*</code><dd>Matches zero or more repetitions of the regular expression immediately
+preceding it. The regular expression can be either a single character
+regular expression or a subexpression. If '<samp><span class="samp">*</span></samp>' is the first
 character of a regular expression or subexpression, then it matches
 itself. The '<samp><span class="samp">*</span></samp>' operator sometimes yields unexpected results. For
 example, the regular expression '<samp><span class="samp">b*</span></samp>' matches the beginning of the
@@ -663,7 +663,8 @@ commands accept a print suffix, which is any of '<samp><span class="samp">p</spa
 '<samp><span class="samp">l</span></samp>' (list), or '<samp><span class="samp">n</span></samp>' (enumerate), to print the last line
 affected by the command. It is not portable to give more than one print
 suffix, but <samp><span class="command">ed</span></samp> allows any combination of non-repeated print
-suffixes and combines their effects.
+suffixes and combines their effects. If any suffix letter is given, it
+must immediately follow the command.
 
    <p>An interrupt (typically &lt;Control-C&gt;) has the effect of aborting the
 current command and returning the editor to command mode.
@@ -750,10 +751,10 @@ not printed. It is recommended that ed scripts begin with this command
 to aid in debugging.
 
      <br><dt><code>(.)i</code><dd>Inserts text in the buffer before the addressed line. The address
-'<samp><span class="samp">0</span></samp>' (zero) is valid for this command; it is equivalent to address
-'<samp><span class="samp">1</span></samp>'. Text is entered in input mode. The current address is set to
-the address of the last line entered or, if there were none, to the
-addressed line.
+'<samp><span class="samp">0</span></samp>' (zero) is valid for this command; it places the entered text at
+the beginning of the buffer. Text is entered in input mode. The current
+address is set to the address of the last line entered or, if there were
+none, to the addressed line.
 
      <br><dt><code>(.,.+1)j</code><dd>Joins the addressed lines, replacing them by a single line containing
 their joined text. If only one address is given, this command does
@@ -830,7 +831,7 @@ the last line affected is printed as if the print suffix '<samp><span class="sam
 specified. The last delimiter can't be omitted if the '<samp><span class="samp">s</span></samp>' command
 is part of a '<samp><span class="samp">g</span></samp>' or '<samp><span class="samp">v</span></samp>' <var>command-list</var> and is not the last
 command in the list, because the meaning of the following escaped
-newline becomes ambiguous.
+newline would become ambiguous.
 
      <p>An unescaped '<samp><span class="samp">&amp;</span></samp>' in <var>replacement</var> is replaced by the currently
 matched text. The character sequence '<samp><span class="samp">\</span><var>m</var></samp>' where <var>m</var> is a
@@ -842,11 +843,8 @@ single '<samp><span class="samp">%</span></samp>', then <var>replacement</var> f
 used.
 
      <p>A line can be split by including a newline escaped with a backslash
-('<samp><span class="samp">\</span></samp>') in <var>replacement</var>, except if the '<samp><span class="samp">s</span></samp>' command is part
-of a '<samp><span class="samp">g</span></samp>' or '<samp><span class="samp">v</span></samp>' <var>command-list</var>, because in this case the
-meaning of the escaped newline becomes ambiguous. Each backslash in
-<var>replacement</var> removes the special meaning (if any) of the following
-character.
+('<samp><span class="samp">\</span></samp>') in <var>replacement</var>. Each backslash in <var>replacement</var>
+removes the special meaning (if any) of the following character.
 
      <br><dt><code>(.,.)s</code><dd>Repeats the last substitution. This form of the '<samp><span class="samp">s</span></samp>' command accepts
 the '<samp><span class="samp">g</span></samp>' and '<samp><var>count</var></samp>' suffixes described above, and any
