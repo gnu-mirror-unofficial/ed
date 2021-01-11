@@ -7,7 +7,7 @@
 <link title="Top" rel="top" href="#Top">
 <link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
 <!--
-Copyright (C) 1993, 1994, 2006-2020 Free Software Foundation, Inc.
+Copyright (C) 1993, 1994, 2006-2021 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -37,7 +37,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 
 <h2 class="unnumbered">The GNU ed line editor</h2>
 
-<p>This manual is for GNU ed (version 1.16, 20 February 2020).
+<p>This manual is for GNU ed (version 1.17, 6 January 2021).
 
 <ul class="menu">
 <li><a accesskey="1" href="#Overview">Overview</a>:                         Overview of the <samp><span class="command">ed</span></samp> command
@@ -55,7 +55,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
    <pre class="sp">
 
 </pre>
-Copyright &copy; 1993, 1994, 2006-2020 Free Software Foundation, Inc.
+Copyright &copy; 1993, 1994, 2006-2021 Free Software Foundation, Inc.
 
    <p>Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -73,13 +73,14 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 <h2 class="chapter">1 Overview</h2>
 
-<p><a href="http://www.gnu.org/software/ed/ed.html">GNU ed</a> is a line-oriented
-text editor. It is used to create, display, modify and otherwise manipulate
-text files, both interactively and via shell scripts. A restricted version
-of ed, red, can only edit files in the current directory and cannot execute
-shell commands. Ed is the 'standard' text editor in the sense that it is the
-original editor for Unix, and thus widely available. For most purposes,
-however, it is superseded by full-screen editors such as GNU Emacs or GNU Moe.
+<p><a href="http://www.gnu.org/software/ed/ed.html">GNU ed</a>
+is a line-oriented text editor. It is used to create, display, modify
+and otherwise manipulate text files, both interactively and via shell
+scripts. A restricted version of ed, red, can only edit files in the current
+directory and cannot execute shell commands. Ed is the 'standard' text
+editor in the sense that it is the original editor for Unix, and thus widely
+available. For most purposes, however, it is superseded by full-screen
+editors such as GNU Emacs or GNU Moe.
 
    <p>GNU ed is based on the editor algorithm described in Brian W. Kernighan and
 P. J. Plauger's book "Software Tools in Pascal", Addison-Wesley, 1981.
@@ -279,7 +280,7 @@ with '<samp><span class="samp">#</span></samp>' are just more input.
      $
 </pre>
    <p>Since <samp><span class="command">ed</span></samp> is line-oriented, we have to tell it which line, or
-range of lines we want to edit. In the above example, we do this by
+range of lines we want to edit. In the example above, we do this by
 specifying the line's number, or sequence in the buffer. Alternatively,
 we could have specified a unique string in the line, e.g.,
 '<samp><span class="samp">/filvers/</span></samp>', where the '<samp><span class="samp">/</span></samp>'s delimit the string in question. 
@@ -359,13 +360,17 @@ via <samp><span class="command">sh (1)</span></samp>. To read a file whose name 
 prefix the name with a backslash (<kbd>\</kbd>). The default filename is set
 to <var>file</var> only if it is not prefixed with a bang.
 
-   <p><samp><span class="command">ed</span></samp> supports the following options:
+   <p><samp><span class="command">ed</span></samp> supports the following
+<a href="http://www.nongnu.org/arg-parser/manual/arg_parser_manual.html#Argument-syntax">options</a>:
 
      <dl>
 <dt><code>-h</code><dt><code>--help</code><dd>Print an informative help message describing the options and exit.
 
      <br><dt><code>-V</code><dt><code>--version</code><dd>Print the version number of <samp><span class="command">ed</span></samp> on the standard output and exit. 
 This version number should be included in all bug reports.
+
+     <br><dt><code>-E</code><dt><code>--extended-regexp</code><dd>Use extended regular expressions instead of the basic regular expressions
+mandated by POSIX.
 
      <br><dt><code>-G</code><dt><code>--traditional</code><dd>Forces backwards compatibility. This affects the behavior of the
 <samp><span class="command">ed</span></samp> commands '<samp><span class="samp">G</span></samp>', '<samp><span class="samp">V</span></samp>', '<samp><span class="samp">f</span></samp>', '<samp><span class="samp">l</span></samp>', '<samp><span class="samp">m</span></samp>',
@@ -477,8 +482,8 @@ the portable character set '<samp><span class="samp">[a-z]</span></samp>'.
 separated by whitespace. Offsets are constructed as follows:
 
      <ul>
-<li>'<samp><span class="samp">+</span></samp>' or '<samp><span class="samp">-</span></samp>' followed by a number adds or subtracts the
-indicated number of lines to or from the address.
+<li>'<samp><span class="samp">+</span></samp>' or '<samp><span class="samp">-</span></samp>' followed by a number adds or subtracts the indicated
+number of lines to or from the address.
 
      <li>'<samp><span class="samp">+</span></samp>' or '<samp><span class="samp">-</span></samp>' not followed by a number adds or subtracts 1 to or
 from the address.
@@ -523,7 +528,8 @@ that point is matched.
 
    <p>A null <var>re</var> is equivalent to the last <var>re</var> encountered.
 
-   <p>The following symbols are used in constructing regular expressions:
+   <p>The following symbols are used in constructing regular expressions
+using POSIX basic regular expression syntax:
 
      <dl>
 <dt><var>c</var><dd>Any character <var>c</var> not listed below, including '<samp><span class="samp">{</span></samp>', '<samp><span class="samp">}</span></samp>',
@@ -565,17 +571,15 @@ constructs.
 anchors the regular expression to the beginning of a line. Otherwise,
 it matches itself.
 
-     <br><dt><code>$</code><dd>If '<samp><span class="samp">$</span></samp>' is the last character of a regular expression, it anchors
-the regular expression to the end of a line. Otherwise, it matches
-itself.
+     <br><dt><code>$</code><dd>If '<samp><span class="samp">$</span></samp>' is the last character of a regular expression, it anchors the
+regular expression to the end of a line. Otherwise, it matches itself.
 
      <br><dt><code>\(</code><var>re</var><code>\)</code><dd>Defines a (possibly null) subexpression <var>re</var>. Subexpressions may be
 nested. A subsequent backreference of the form '<samp><span class="samp">\</span><var>n</var></samp>', where
 <var>n</var> is a number in the range [1,9], expands to the text matched by
 the <var>n</var>th subexpression. For example, the regular expression
-'<samp><span class="samp">\(a.c\)\1</span></samp>' matches the string '<samp><span class="samp">abcabc</span></samp>', but not
-'<samp><span class="samp">abcadc</span></samp>'. Subexpressions are ordered relative to their left
-delimiter.
+'<samp><span class="samp">\(a.c\)\1</span></samp>' matches the string '<samp><span class="samp">abcabc</span></samp>', but not '<samp><span class="samp">abcadc</span></samp>'. 
+Subexpressions are ordered relative to their left delimiter.
 
      <br><dt><code>*</code><dd>Matches zero or more repetitions of the regular expression immediately
 preceding it. The regular expression can be either a single character
@@ -594,20 +598,20 @@ forms occurs first in a regular expression or subexpression, then it is
 interpreted literally (i.e., the regular expression '<samp><span class="samp">\{2\}</span></samp>'
 matches the string '<samp><span class="samp">{2}</span></samp>', and so on).
 
-     <br><dt><code>\&lt;</code><dt><code>\&gt;</code><dd>Anchors the single character regular expression or subexpression
+   </dl>
+
+   <p>The following extensions to basic regular expression operators are preceded
+by a backslash '<samp><span class="samp">\</span></samp>' to distinguish them from traditional <samp><span class="command">ed</span></samp>
+syntax. They may be unavailable depending on the particular regex
+implementation in your system.
+
+     <dl>
+<dt><code>\&lt;</code><dt><code>\&gt;</code><dd>Anchors the single character regular expression or subexpression
 immediately following it to the beginning (in the case of '<samp><span class="samp">\&lt;</span></samp>') or
 ending (in the case of '<samp><span class="samp">\&gt;</span></samp>') of a <dfn>word</dfn>, i.e., in ASCII, a
 maximal string of alphanumeric characters, including the underscore (_).
 
-   </dl>
-
-   <p>The following extended regular expression operators are preceded by a
-backslash '<samp><span class="samp">\</span></samp>' to distinguish them from traditional <samp><span class="command">ed</span></samp> syntax. 
-They may be unavailable depending on the particular regex implementation in
-your system.
-
-     <dl>
-<dt><code>\`</code><dt><code>\'</code><dd>Unconditionally matches the beginning '<samp><span class="samp">\`</span></samp>' or ending '<samp><span class="samp">\'</span></samp>' of a line.
+     <br><dt><code>\`</code><dt><code>\'</code><dd>Unconditionally matches the beginning '<samp><span class="samp">\`</span></samp>' or ending '<samp><span class="samp">\'</span></samp>' of a line.
 
      <br><dt><code>\?</code><dd>Optionally matches the single character regular expression or
 subexpression immediately preceding it. For example, the regular
@@ -710,15 +714,16 @@ command, except that unwritten changes are discarded without warning.
      <br><dt><code>f </code><var>file</var><dd>Sets the default filename to <var>file</var>. If <var>file</var> is not specified,
 then the default unescaped filename is printed.
 
-     <br><dt><code>(1,$)g/</code><var>re</var><code>/</code><var>command-list</var><dd>Global command. The global command makes two passes over the file. On
-the first pass, all the addressed lines matching a regular expression
-<var>re</var> are marked. Then, going sequentially from the beginning of the
-file to the end of the file, the given <var>command-list</var> is executed
-for each marked line, with the current address set to the address of
-that line. Any line modified by the <var>command-list</var> is unmarked. The
-final value of the current address is the value assigned by the last
-command in the last <var>command-list</var> executed. If there were no
-matching lines, the current address is unchanged.
+     <br><dt><code>(1,$)g/</code><var>re</var><code>/</code><var>command-list</var><dd>Global command. The global command makes two passes over the file. On the
+first pass, all the addressed lines matching a regular expression <var>re</var>
+are marked. Then, going sequentially from the beginning of the file to the
+end of the file, the given <var>command-list</var> is executed for each marked
+line, with the current address set to the address of that line. Any line
+modified by the <var>command-list</var> is unmarked. The final value of the
+current address is the value assigned by the last command in the last
+<var>command-list</var> executed. If there were no matching lines, the current
+address is unchanged. The execution of <var>command-list</var> stops on the first
+error.
 
      <p>The first command of <var>command-list</var> must appear on the same line as the
 '<samp><span class="samp">g</span></samp>' command. The other commands of <var>command-list</var> must appear on
@@ -836,10 +841,9 @@ newline would become ambiguous.
 matched text. The character sequence '<samp><span class="samp">\</span><var>m</var></samp>' where <var>m</var> is a
 number in the range [1,9], is replaced by the <var>m</var>th backreference
 expression of the matched text. If the corresponding backreference
-expression does not match, then the character sequence '<samp><span class="samp">\</span><var>m</var></samp>'
-is replaced by the empty string. If <var>replacement</var> consists of a
-single '<samp><span class="samp">%</span></samp>', then <var>replacement</var> from the last substitution is
-used.
+expression does not match, then the character sequence '<samp><span class="samp">\</span><var>m</var></samp>' is
+replaced by the empty string. If <var>replacement</var> consists of a single
+'<samp><span class="samp">%</span></samp>', then <var>replacement</var> from the last substitution is used.
 
      <p>A line can be split by including a newline escaped with a backslash
 ('<samp><span class="samp">\</span></samp>') in <var>replacement</var>. Each backslash in <var>replacement</var>
@@ -914,10 +918,9 @@ the previous '<samp><span class="samp">!</span><var>command</var></samp>'. <samp
 from execution, a '<samp><span class="samp">!</span></samp>' is printed to the standard output. The
 current address is unchanged.
 
-     <br><dt><code>(.,.)#</code><dd>Begins a comment; the rest of the line, up to a newline, is ignored. If
-a line address followed by a semicolon is given, then the current
-address is set to that address. Otherwise, the current address is
-unchanged.
+     <br><dt><code>(.,.)#</code><dd>Begins a comment; the rest of the line, up to a newline, is ignored. If a
+line address followed by a semicolon is given, then the current address is
+set to that address. Otherwise, the current address is unchanged.
 
      <br><dt><code>($)=</code><dd>Prints the line number of the addressed line. The current address is
 unchanged.
