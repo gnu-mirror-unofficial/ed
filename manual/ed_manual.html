@@ -37,7 +37,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 
 <h2 class="unnumbered">The GNU ed line editor</h2>
 
-<p>This manual is for GNU ed (version 1.17, 6 January 2021).
+<p>This manual is for GNU ed (version 1.18-pre1, 23 April 2021).
 
 <ul class="menu">
 <li><a accesskey="1" href="#Overview">Overview</a>:                         Overview of the <samp><span class="command">ed</span></samp> command
@@ -113,15 +113,15 @@ lines, and so on. It is possible to modify only a portion of a line by
 means of replacement, as in the example above. However even here, the
 '<samp><span class="samp">s</span></samp>' command is applied to whole lines at a time.
 
-   <p>In general, <samp><span class="command">ed</span></samp> commands consist of zero or more line
-addresses, followed by a single character command and possibly
-additional parameters; i.e., commands have the structure:
+   <p>In general, <samp><span class="command">ed</span></samp> commands consist of zero or more line addresses,
+followed by a single character command and possibly additional parameters;
+i.e., commands have the structure:
 
 <pre class="example">     [<var>address</var>[,<var>address</var>]]<var>command</var>[<var>parameters</var>]
 </pre>
-   <p>The <var>address</var>es indicate the line or range of lines to be affected
-by the command. If fewer addresses are given than the command accepts,
-then default addresses are supplied.
+   <p>The <var>address</var>es indicate the line or range of lines to be affected by
+the command. If fewer addresses are given than the command accepts, then
+default addresses are supplied.
 
 <div class="node">
 <a name="Introduction-to-line-editing"></a>
@@ -492,11 +492,11 @@ from the address.
 
    </ul>
 
-   <p>It is not an error if an intermediate address value is negative or
-greater than the address of the last line in the buffer. It is an error
-if the final address value is negative or greater than the address of
-the last line in the buffer. It is an error if a search for a <var>re</var>
-fails to find a matching line.
+   <p>It is not an error if an intermediate address value is negative or greater
+than the address of the last line in the buffer. It is an error if the final
+address value is negative or greater than the address of the last line in
+the buffer. It is an error if a search for a regular expression fails to
+find a matching line.
 
 <div class="node">
 <a name="Regular-expressions"></a>
@@ -509,27 +509,26 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 <h2 class="chapter">5 Regular expressions</h2>
 
-<p>Regular expressions are patterns used in selecting text. For example,
-the <samp><span class="command">ed</span></samp> command
+<p>Regular expressions are patterns used in selecting text. For example, the
+<samp><span class="command">ed</span></samp> command
 
 <pre class="example">     g/<var>string</var>/
 </pre>
-   <p class="noindent">prints all lines containing <var>string</var>. Regular expressions are also
-used by the '<samp><span class="samp">s</span></samp>' command for selecting old text to be replaced with
-new text.
+   <p class="noindent">prints all lines containing <var>string</var>. Regular expressions are also used
+by the '<samp><span class="samp">s</span></samp>' command for selecting old text to be replaced with new text.
 
-   <p>In addition to specifying string literals, regular expressions can
-represent classes of strings. Strings thus represented are said to be
-matched by the corresponding regular expression. If it is possible for a
-regular expression to match several strings in a line, then the
-left-most match is the one selected. If the regular expression permits a
-variable number of matching characters, the longest sequence starting at
-that point is matched.
+   <p>In addition to specifying string literals, regular expressions can represent
+classes of strings. Strings thus represented are said to be matched by the
+corresponding regular expression. If it is possible for a regular expression
+to match several strings in a line, then the left-most match is the one
+selected. If the regular expression permits a variable number of matching
+characters, the longest sequence starting at that point is matched.
 
-   <p>A null <var>re</var> is equivalent to the last <var>re</var> encountered.
+   <p>An empty regular expression is equivalent to the last regular expression
+encountered.
 
-   <p>The following symbols are used in constructing regular expressions
-using POSIX basic regular expression syntax:
+   <p>The following symbols are used in constructing regular expressions using
+POSIX basic regular expression syntax:
 
      <dl>
 <dt><var>c</var><dd>Any character <var>c</var> not listed below, including '<samp><span class="samp">{</span></samp>', '<samp><span class="samp">}</span></samp>',
@@ -574,7 +573,7 @@ it matches itself.
      <br><dt><code>$</code><dd>If '<samp><span class="samp">$</span></samp>' is the last character of a regular expression, it anchors the
 regular expression to the end of a line. Otherwise, it matches itself.
 
-     <br><dt><code>\(</code><var>re</var><code>\)</code><dd>Defines a (possibly null) subexpression <var>re</var>. Subexpressions may be
+     <br><dt><code>\(</code><var>re</var><code>\)</code><dd>Defines a (possibly empty) subexpression <var>re</var>. Subexpressions may be
 nested. A subsequent backreference of the form '<samp><span class="samp">\</span><var>n</var></samp>', where
 <var>n</var> is a number in the range [1,9], expands to the text matched by
 the <var>n</var>th subexpression. For example, the regular expression
@@ -587,8 +586,8 @@ regular expression or a subexpression. If '<samp><span class="samp">*</span></sa
 character of a regular expression or subexpression, then it matches
 itself. The '<samp><span class="samp">*</span></samp>' operator sometimes yields unexpected results. For
 example, the regular expression '<samp><span class="samp">b*</span></samp>' matches the beginning of the
-string '<samp><span class="samp">abbb</span></samp>', as opposed to the substring '<samp><span class="samp">bbb</span></samp>', since a null
-match is the only left-most match.
+string '<samp><span class="samp">abbb</span></samp>', as opposed to the substring '<samp><span class="samp">bbb</span></samp>', since an empty
+string is the only left-most match.
 
      <br><dt><code>\{</code><var>n</var><code>,</code><var>m</var><code>\}</code><dt><code>\{</code><var>n</var><code>,\}</code><dt><code>\{</code><var>n</var><code>\}</code><dd>Matches the single character regular expression or subexpression
 immediately preceding it at least <var>n</var> and at most <var>m</var> times. If
@@ -625,16 +624,15 @@ immediately preceding it one or more times. So the regular expression
 beginning of a regular expression or subexpression, then it matches a
 literal '<samp><span class="samp">+</span></samp>'.
 
-     <br><dt><code>\b</code><dd>Matches the beginning or ending (null string) of a word. Thus the
-regular expression '<samp><span class="samp">\bhello\b</span></samp>' is equivalent to '<samp><span class="samp">\&lt;hello\&gt;</span></samp>'. 
-However, '<samp><span class="samp">\b\b</span></samp>' is a valid regular expression whereas '<samp><span class="samp">\&lt;\&gt;</span></samp>'
-is not.
+     <br><dt><code>\b</code><dd>Matches the beginning or ending (empty string) of a word. Thus the regular
+expression '<samp><span class="samp">\bhello\b</span></samp>' is equivalent to '<samp><span class="samp">\&lt;hello\&gt;</span></samp>'. However,
+'<samp><span class="samp">\b\b</span></samp>' is a valid regular expression whereas '<samp><span class="samp">\&lt;\&gt;</span></samp>' is not.
 
-     <br><dt><code>\B</code><dd>Matches (a null string) inside a word.
+     <br><dt><code>\B</code><dd>Matches (an empty string) inside a word.
 
-     <br><dt><code>\w</code><dd>Matches any character in a word.
+     <br><dt><code>\w</code><dd>Matches any word-constituent character (letters, digits, and the underscore).
 
-     <br><dt><code>\W</code><dd>Matches any character not in a word.
+     <br><dt><code>\W</code><dd>Matches any character that is not a word-constituent.
 
    </dl>
 
@@ -650,9 +648,9 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <h2 class="chapter">6 Commands</h2>
 
 <p>All <samp><span class="command">ed</span></samp> commands are single characters, though some require
-additonal parameters. If a command's parameters extend over several
-lines, then each line except for the last must be terminated with a
-backslash ('<samp><span class="samp">\</span></samp>').
+additional parameters. If a command's parameters extend over several lines,
+then each line except for the last must be terminated with a backslash
+('<samp><span class="samp">\</span></samp>').
 
    <p>In general, at most one command is allowed per line. However, most
 commands accept a print suffix, which is any of '<samp><span class="samp">p</span></samp>' (print),
@@ -744,8 +742,8 @@ the value assigned by the last command executed. If there were no
 matching lines, the current address is unchanged.
 
      <p>The format of <var>command-list</var> is the same as that of the '<samp><span class="samp">g</span></samp>'
-command. A newline alone acts as a null command list. A single '<samp><span class="samp">&amp;</span></samp>'
-repeats the last non-null command list.
+command. A newline alone acts as an empty command list. A single '<samp><span class="samp">&amp;</span></samp>'
+repeats the last non-empty command list.
 
      <br><dt><code>h</code><dd>Help. Prints an explanation of the last error.
 
@@ -925,9 +923,9 @@ set to that address. Otherwise, the current address is unchanged.
      <br><dt><code>($)=</code><dd>Prints the line number of the addressed line. The current address is
 unchanged.
 
-     <br><dt><code>(.+1)&lt;newline&gt;</code><dd>Null command. An address alone prints the addressed line. A
-&lt;newline&gt; alone is equivalent to '<samp><span class="samp">+1p</span></samp>'. The current address is
-set to the address of the printed line.
+     <br><dt><code>(.+1)&lt;newline&gt;</code><dd>Null command. An address alone prints the addressed line. A &lt;newline&gt;
+alone is equivalent to '<samp><span class="samp">+1p</span></samp>'. The current address is set to the address
+of the printed line.
 
    </dl>
 
